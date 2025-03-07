@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./lib/Cesium/Widgets/widgets.css">
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+</body>
+<script src="./lib/Cesium/Cesium.js"></script>
+<script src="./lib/three/build/three.js"></script>
+<script src="./lib/cesium-three-sync.umd.cjs"></script>
+<script type="module">
+  Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzOTUwYzYxZS0xNmQzLTRjYzQtYTE5NC1iMzNkNmZmNDJjODMiLCJpZCI6MzUwMjQsImlhdCI6MTYwMTI1NjYyNH0.qtYYRNJyDZB9yOcJG-e8UCwp2CeSMwYNMHDsbsebX9Y";
+  let viewer = new Cesium.Viewer('map', {
+    sceneModePicker: false,
+  });
+  viewer.camera.setView({
+    destination: Cesium.Cartesian3.fromRadians(1.9017009806250227, 0.5984191400336798, 152.17253179078665),
+    orientation: {
+      heading: 6.2812481058513825,
+      pitch: -0.7356471245375866,
+      roll: 0,
+    },
+  });
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+  let renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer.setClearColor(0x000000, 0);
+
+  let bridge = new CesiumThreeSync(viewer);
+  bridge.attachRendererDomToCesium(renderer);
+  let position = Cesium.Cartesian3.fromDegrees(108.95943284886424, 34.288286155753546, 0.1);
+  let bridgeContainer = bridge.createBridgeContainer(position);
+  scene.add(bridgeContainer);
+
+  //创建光源
+  let spotLight = new THREE.SpotLight(0xffffff, 7000);
+  spotLight.position.set(-10, 60, -10);
+  spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+  spotLight.shadow.camera.far = 130;
+  spotLight.shadow.camera.near = 40;
+  spotLight.shadow.mapSize = new THREE.Vector2(3000, 3000)
+  bridgeContainer.add(spotLight);
+  //环境光
+  let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+  bridgeContainer.add(ambientLight);
+  //创建矩形平面
+  let planeGeometry = new THREE.PlaneGeometry(60, 30);
+  let planeMaterial = new THREE.MeshLambertMaterial({
+    color: "#eee"
+  });
+  let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.rotation.x = -0.5 * Math.PI;//绕x轴旋转-90度
+  plane.position.y = 0;
+  plane.position.z = 0;
+  bridgeContainer.add(plane);
+  //添加球体
+  let sphereGeometry = new THREE.SphereGeometry(5, 50, 50);
+  let sphereMaterial = new THREE.MeshLambertMaterial({
+    color: "blue",
+  });
+  let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  sphere.position.set(0, 0, 0)
+  bridgeContainer.add(sphere);
+  renderer.shadowMap.enabled = true;
+  spotLight.castShadow = true;
+  plane.receiveShadow = true;
+  sphere.castShadow = true;
+
+  let step = 0;
+
+  viewer.scene.postRender.addEventListener(() => {
+
+    //圆弧运动
+    step += 0.08;
+    sphere.position.x = 10 * Math.cos(step);//余弦
+    sphere.position.y = 5 + 10 * Math.abs(Math.sin(step));//正弦
+    bridge.syncCamera(camera);
+    renderer.render(scene, camera);
+  });
+
+</script>
+
+</html>

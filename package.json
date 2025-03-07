@@ -1,0 +1,33 @@
+{
+  "name": "cesium-three-sync",
+  "version": "1.0.0",
+  "description": "A plugin that enables Cesium and Three.js to run in synchronization.",
+  "main": "dist/cesium-three-sync.umd.cjs",
+  "module": "dist/cesium-three-sync.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cesium",
+    "Three.js",
+    "WebGL"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weijun-lab/cesium-three-sync.git"
+  },
+  "author": "Jun Wei",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.12"
+  },
+  "dependencies": {
+    "three": "^0.174.0"
+  }
+}
