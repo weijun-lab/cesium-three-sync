@@ -1,4 +1,4 @@
-# ThreeToCesium
+# three-to-cesium
 - - -
 **语言:** [English](README.md) / [简体中文](README.zh-CN.md)
 - - -
@@ -6,18 +6,18 @@
 ---
 ![](./example/assets/code2.gif)
 ## 🎨在线示例
-<https://weijun-lab.github.io/ThreeToCesium/>
+<https://weijun-lab.github.io/three-to-cesium/>
 ## 安装
-* `npm install ThreeToCesium`
+* `npm install three-to-cesium`
 * 或者下载本仓库
 ## 使用方式
 ### ESM(ECMAScript Modules)
 ```js
-import ThreeToCesium from "ThreeToCesium";
+import ThreeToCesium from "three-to-cesium";
 ```
 ### UMD(Universal Module Definition)
 ```html
-<script src="ThreeToCesium/dist/ThreeToCesium.umd.cjs"></script>
+<script src="three-to-cesium/dist/three-to-cesium.umd.cjs"></script>
 ```
 ---
 ## 代码示例

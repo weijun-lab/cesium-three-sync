@@ -1,5 +1,5 @@
 {
-  "name": "ThreeToCesium",
+  "name": "three-to-cesium",
   "version": "1.0.0",
   "description": "A plugin that enables Cesium and Three.js to run in synchronization.",
   "main": "dist/ThreeToCesium.umd.cjs",
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/weijun-lab/ThreeToCesium.git"
+    "url": "https://github.com/weijun-lab/three-to-cesium.git"
   },
   "author": "Jun Wei",
   "license": "MIT",

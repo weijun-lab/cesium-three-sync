@@ -1,4 +1,4 @@
-# ThreeToCesium
+# three-to-cesium
 - - -
 **language:** [English](README.md) / [简体中文](README.zh-CN.md)
 - - -
@@ -6,18 +6,18 @@ A plugin that enables Cesium and Three.js to run in synchronization.
 ---
 ![](./example/assets/code2.gif)
 ## 🎨Live Demo
-<https://weijun-lab.github.io/ThreeToCesium/>
+<https://weijun-lab.github.io/three-to-cesium/>
 ## Installation
-* `npm install ThreeToCesium`
+* `npm install three-to-cesium`
 * Or download the repository
 ## Usage
 ### ESM(ECMAScript Modules)
 ```js
-import ThreeToCesium from "ThreeToCesium";
+import ThreeToCesium from "three-to-cesium";
 ```
 ### UMD(Universal Module Definition)
 ```html
-<script src="ThreeToCesium/dist/ThreeToCesium.umd.cjs"></script>
+<script src="three-to-cesium/dist/three-to-cesium.umd.cjs"></script>
 ```
 ---
 ## Code Example
