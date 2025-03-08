@@ -13,12 +13,13 @@ export default defineConfig({
       fileName: "three-to-cesium",
     },
     rollupOptions: {
-      external: ['three'],//指定外部依赖，不会将其打包到bundle中
+      external: ['three','cesium'],//指定外部依赖，不会将其打包到bundle中
       output: {
         chunkFileNames: "src/[name].js", // 按需加载模块的命名规则
         assetFileNames: "three-to-cesium[extname]", // 静态资源（包括CSS）的命名规则
         globals: {
-          leaflet: 'THREE', // 定义THREE的全局变量名，确保umd.js能正确访问到THREE
+          three: 'THREE', // 定义THREE的全局变量名，确保umd.js能正确访问到THREE
+          cesium: 'Cesium', // 定义Cesium的全局变量名，确保umd.js能正确访问到Cesium
         },
       },
     },
