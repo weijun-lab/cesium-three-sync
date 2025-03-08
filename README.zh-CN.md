@@ -19,6 +19,20 @@ import ThreeToCesium from "three-to-cesium";
 ```html
 <script src="three-to-cesium/dist/three-to-cesium.umd.cjs"></script>
 ```
+### 注意
+本插件依赖于Cesium和Three.js库,使用UMD引入时,请确保Cesium和Three.js库已经引入。
+```html
+<script src="path/to/three.js"></script>
+<script src="path/to/Cesium.js"></script>
+<script src="three-to-cesium/dist/three-to-cesium.umd.cjs"></script>
+```
+若采用构建工具进行模块引入，请确保项目环境中已安装Cesium和Three.js。
+```bash
+npm install three cesium
+```
+```js
+import ThreeToCesium from "three-to-cesium";
+```
 ---
 ## 代码示例
 ### 示例1

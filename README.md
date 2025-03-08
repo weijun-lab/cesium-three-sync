@@ -19,6 +19,20 @@ import ThreeToCesium from "three-to-cesium";
 ```html
 <script src="three-to-cesium/dist/three-to-cesium.umd.cjs"></script>
 ```
+### Warning
+This plugin relies on the Cesium and Three.js libraries to achieve its full functionality. When using UMD, please ensure that the Cesium and Three.js libraries have already been loaded.
+```html
+<script src="path/to/three.js"></script>
+<script src="path/to/Cesium.js"></script>
+<script src="three-to-cesium/dist/three-to-cesium.umd.cjs"></script>
+```
+If you are using a build tool for module import, please ensure that Cesium and Three.js are installed in your project environment.
+```bash
+npm install three cesium
+```
+```js
+import ThreeToCesium from "three-to-cesium";
+```
 ---
 ## Code Example
 ### Example1
