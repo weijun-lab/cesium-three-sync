@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import * as Cesium from "Cesium";
+import * as Cesium from "cesium";
 class _ThreeToCesium {
   #options
   #isDestroy
