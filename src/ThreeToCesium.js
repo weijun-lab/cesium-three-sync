@@ -44,7 +44,6 @@ class _ThreeToCesium {
       cvm[3], cvm[7], cvm[11], cvm[15]
     );
 
-    // 设置three宽高
     let cesiumContainer = this.cesiumViewer.container;
     let width = cesiumContainer.offsetWidth;
     let height = cesiumContainer.offsetHeight;

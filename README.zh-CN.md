@@ -2,7 +2,7 @@
 - - -
 **语言:** [English](README.md) / [简体中文](README.zh-CN.md)
 - - -
-一个将Cesium和Three.js在同步运行的插件。
+一个使Cesium和Three.js同步运行的插件。
 ---
 ![](./example/assets/code2.gif)
 ## 🎨在线示例
