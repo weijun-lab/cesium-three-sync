@@ -64,7 +64,7 @@ let planeMaterial = new THREE.MeshLambertMaterial({
     color: "#eee"
 });
 let plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = -0.5 * Math.PI;//绕x轴旋转-90度
+plane.rotation.x = -0.5 * Math.PI;
 plane.position.y = 0;
 plane.position.z = 0;
 group.add(plane);

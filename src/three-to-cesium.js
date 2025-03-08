@@ -5,8 +5,8 @@ class _ThreeToCesium {
   constructor(cesiumViewer,options={}) {
     this.cesiumViewer = cesiumViewer;
     this.#options = {
-      near:options.near ?? 0.1,
-      far:options.far ?? 10000,
+      cameraNear:options.cameraNear ?? 0.1,
+      cameraFar:options.cameraFar ?? 10000,
     };
     this.#attachRendererDomToCesium();
   }
@@ -15,7 +15,7 @@ class _ThreeToCesium {
     let width = cesiumContainer.offsetWidth;
     let height = cesiumContainer.offsetHeight;
     this.threeScene = new THREE.Scene();
-    this.threeCamera = new THREE.PerspectiveCamera(undefined, width/height, this.#options.near, this.#options.far);
+    this.threeCamera = new THREE.PerspectiveCamera(undefined, width/height, this.#options.cameraNear, this.#options.cameraFar);
     this.threeRenderer = new THREE.WebGLRenderer({ alpha: true });
     this.threeRenderer.setClearColor(0x000000, 0);
     this.threeRenderer.domElement.style.position = "absolute";
