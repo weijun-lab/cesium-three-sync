@@ -25,10 +25,10 @@
 <script src="./lib/ThreeToCesium.umd.cjs"></script>
 <script>
   Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzOTUwYzYxZS0xNmQzLTRjYzQtYTE5NC1iMzNkNmZmNDJjODMiLCJpZCI6MzUwMjQsImlhdCI6MTYwMTI1NjYyNH0.qtYYRNJyDZB9yOcJG-e8UCwp2CeSMwYNMHDsbsebX9Y";
-  let viewer = new Cesium.Viewer('map', {
+  let cesiumViewer = new Cesium.Viewer('map', {
     sceneModePicker: false,
   });
-  viewer.camera.setView({
+  cesiumViewer.camera.setView({
     destination: Cesium.Cartesian3.fromRadians(1.9017009806250227, 0.5984191400336798, 152.17253179078665),
     orientation: {
       heading: 6.2812481058513825,
@@ -36,26 +36,22 @@
       roll: 0,
     },
   });
-  
-  let sceneIntegrator = ThreeToCesium(viewer);
-  let position = Cesium.Cartesian3.fromDegrees(108.95943284886424, 34.288286155753546, 0.1);
 
-  let grop = new THREE.Group();
-  
-  sceneIntegrator.add(grop, position);
-  console.log(sceneIntegrator)
-  //创建光源
+  let sceneIntegrator = ThreeToCesium(cesiumViewer);
+  let position = Cesium.Cartesian3.fromDegrees(108.95943284886424, 34.288286155753546, 0.1);
+  let group = new THREE.Group();
+  sceneIntegrator.add(group, position);
+
   let spotLight = new THREE.SpotLight(0xffffff, 7000);
   spotLight.position.set(-10, 60, -10);
   spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
   spotLight.shadow.camera.far = 130;
   spotLight.shadow.camera.near = 40;
   spotLight.shadow.mapSize = new THREE.Vector2(3000, 3000)
-  grop.add(spotLight);
-  //环境光
+  group.add(spotLight);
   let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-  grop.add(ambientLight);
-  //创建矩形平面
+  group.add(ambientLight);
+
   let planeGeometry = new THREE.PlaneGeometry(60, 30);
   let planeMaterial = new THREE.MeshLambertMaterial({
     color: "#eee"
@@ -64,15 +60,15 @@
   plane.rotation.x = -0.5 * Math.PI;//绕x轴旋转-90度
   plane.position.y = 0;
   plane.position.z = 0;
-  grop.add(plane);
-  //添加球体
+  group.add(plane);
+
   let sphereGeometry = new THREE.SphereGeometry(5, 50, 50);
   let sphereMaterial = new THREE.MeshLambertMaterial({
     color: "blue",
   });
   let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  sphere.position.set(0, 0, 0)
-  grop.add(sphere);
+  group.add(sphere);
+
   sceneIntegrator.threeRenderer.shadowMap.enabled = true;
   spotLight.castShadow = true;
   plane.receiveShadow = true;
@@ -80,7 +76,7 @@
 
   let step = 0;
   let clock = new THREE.Clock();
-  viewer.scene.postRender.addEventListener(() => {
+  cesiumViewer.scene.postRender.addEventListener(() => {
     let delta = clock.getDelta();
     step += delta * 3;
     sphere.position.x = 10 * Math.cos(step);

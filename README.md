@@ -4,7 +4,7 @@
 - - -
 A plugin that enables Cesium and Three.js to run in synchronization.
 ---
-![](https://github.com/weijun-lab/Leaflet.TrackPlayer/blob/master/examples/lib/assets/demo.gif?raw=true)
+![](./example/assets/code2.gif)
 ## 🎨Live Demo
 <https://weijun-lab.github.io/ThreeToCesium/>
 ## Installation
@@ -21,6 +21,7 @@ import ThreeToCesium from "ThreeToCesium";
 ```
 ---
 ## Code Example
+### Example1
 ```js
 let cesiumViewer = new Cesium.Viewer('map', {
   sceneModePicker: false,
@@ -36,19 +37,74 @@ cesiumViewer.scene.postRender.addEventListener(() => {
   sceneIntegrator.update();
 });
 ```
-## params
+![](./example/assets/code1.png)
+
+### Example2
 ```js
-ThreeToCesium(cesiumViewer,option);
+let cesiumViewer = new Cesium.Viewer('map', {
+    sceneModePicker: false,
+});
+let sceneIntegrator = ThreeToCesium(cesiumViewer);
+let position = Cesium.Cartesian3.fromDegrees(108.95943284886424, 34.288286155753546, 0.1);
+let group = new THREE.Group();
+sceneIntegrator.add(group, position);
+
+let spotLight = new THREE.SpotLight(0xffffff, 7000);
+spotLight.position.set(-10, 60, -10);
+spotLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+spotLight.shadow.camera.far = 130;
+spotLight.shadow.camera.near = 40;
+spotLight.shadow.mapSize = new THREE.Vector2(3000, 3000)
+group.add(spotLight);
+let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+group.add(ambientLight);
+
+let planeGeometry = new THREE.PlaneGeometry(60, 30);
+let planeMaterial = new THREE.MeshLambertMaterial({
+    color: "#eee"
+});
+let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.rotation.x = -0.5 * Math.PI;//绕x轴旋转-90度
+plane.position.y = 0;
+plane.position.z = 0;
+group.add(plane);
+
+let sphereGeometry = new THREE.SphereGeometry(5, 50, 50);
+let sphereMaterial = new THREE.MeshLambertMaterial({
+    color: "blue",
+});
+let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+group.add(sphere);
+
+sceneIntegrator.threeRenderer.shadowMap.enabled = true;
+spotLight.castShadow = true;
+plane.receiveShadow = true;
+sphere.castShadow = true;
+
+let step = 0;
+let clock = new THREE.Clock();
+cesiumViewer.scene.postRender.addEventListener(() => {
+    let delta = clock.getDelta();
+    step += delta * 3;
+    sphere.position.x = 10 * Math.cos(step);
+    sphere.position.y = 5 + 10 * Math.abs(Math.sin(step));
+    sceneIntegrator.update();
+});
 ```
-| Options | Type | Description |
+![](./example/assets/code2.gif)
+## Params
+```js
+ThreeToCesium(cesiumViewer,options);
+```
+| Params | Type | Description |
 | --- | --- | --- |
 | **cesiumViewer** | Cesium.Viewer | - |
 | **options** | Object | - |
 ### Options
 | Options | Type | Default | Description |
 | --- | --- | --- | --- |
-| **cameraFar** | Number | 600 | The far plane of the Three.js camera frustum. |
-| **cameraNear** | Number | 8 | The near plane of the Three.js camera frustum. |
+| **cameraFar** | Number | 10000 | The far plane of the Three.js camera frustum. |
+| **cameraNear** | Number | 0.1 | The near plane of the Three.js camera frustum. |
 
 ## Methods
 | Methods | Return | Description |
